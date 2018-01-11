@@ -1,0 +1,60 @@
+package test;
+
+import java.util.Scanner;
+
+import javax.naming.spi.DirStateFactory.Result;
+/*
+ *判断一个数是否是回文
+*/
+
+public class Char1 {
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入一串整数，来判断这个数是否是回文质数");
+		int num=sc.nextInt();
+		System.out.println(isPalindromicPrime(num));
+	}
+  
+  
+	//判断这个数是否是回文质数
+	public static boolean isPalindromicPrime(int num) {
+		if(isPalindromic(num) && isPrime(num)){
+			return true;
+		}
+		return false;
+	}
+  
+  
+	//判断这个数是否是质数
+	private static boolean isPrime(int num) {
+		if(num<=1){
+			return false;
+		}
+		for(int i=2;i<num;i++){
+			if(num%i==0){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//判断这个数是否与回文相同
+	private static boolean isPalindromic(int num) {
+		if(num==Flashback(num)){
+			return true;
+		}
+		return false;
+		
+	}
+	//将这个数改为回文
+	private static int Flashback(int num) {
+		int r=0;					//余数
+		int result=0;			//这个数的倒序数
+		while(num!=0){
+			r=num%10;
+			result=result*10+r;
+			num/=10;
+		}
+		return result;
+	}
+}
