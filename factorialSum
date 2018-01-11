@@ -1,0 +1,45 @@
+package test;
+
+import java.util.Scanner;
+
+import javax.naming.spi.DirStateFactory.Result;
+
+
+public class Char1 {
+	public static void main(String[] arg){
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入1-?阶乘");
+		int sum=sc.nextInt();
+		System.out.println(factorialSum(sum));
+	}
+	
+	//求1-N 阶乘和
+	public static int factorialSum(int num) {
+		int sum=0;								//阶乘和结果
+		for(int i=1;i<=num;i++){
+			sum+=factorial(i);
+		}
+		return sum;
+		
+	}
+	
+	
+	//求阶乘
+//	private static int factorial(int num) {
+  //		int result=1;							//阶乘结果
+  //		for (dint i = 1; i <= num; i++) {
+  //			result*=i;
+  //		}
+//		return result;
+//	}
+	
+	//递归法求阶乘
+	private static int factorial(int num){
+		
+		if(num==1){
+			return 1;
+		}
+		return factorial(num-1)*num;
+
+	}
+}
