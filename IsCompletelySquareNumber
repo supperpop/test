@@ -1,0 +1,29 @@
+package test;
+/*
+ * 一个整数，它加上100后是一个完全平方数，再加上169又是另一个完全平放时，这个数是多少：
+ * 若一个数能表示成某个整数的平方的形式，则这个数为完全平方数
+ * */
+
+
+public class Char1 {
+	public static void main(String[] arg) {
+		int num=1;
+		while (true) {
+		
+			if(IsCompletelySquareNumber(num+100) && IsCompletelySquareNumber(num+100+168)){
+				System.out.println(num);
+				break;
+			}
+			num++;
+		}
+	}
+	//判断一个数是否是完全平方数
+	public static boolean IsCompletelySquareNumber(int num) {
+		for (int i = 0; i <= num / 2; i++) {
+			if (i * i == num) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
