@@ -1,0 +1,10 @@
+public class Char1 {
+	public static void main(String[] arg) {
+	weiXin weiXin=new weiXin.Builder().setAge(10).setName("xxx").builder();
+	weiXin.tostr();
+		
+	}
+	
+
+	
+}
