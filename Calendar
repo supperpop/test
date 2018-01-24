@@ -1,0 +1,71 @@
+package test;
+
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+
+
+public class Test {
+	public static void main(String[] arg) throws ParseException {
+		System.out.println("请输入日期：  （格式：YYYY-MM-DD）");
+		Scanner scanner=new Scanner(System.in);
+		//用户输入日期
+		String today =scanner.next();
+		
+		//设置日期格式
+		DateFormat dFormat =new SimpleDateFormat("yyyy-MM-dd");
+		//设置Date格式
+		Date date= new Date();
+		date =dFormat.parse(today);
+		
+		//设置Calendar日期
+		Calendar calendar =new GregorianCalendar();
+		calendar.setTime(date);
+		
+		//获取当前日期的日
+		int d=calendar.get(Calendar.DATE);
+		
+		//获取当前日期月中第一天是星期几
+		calendar.set(calendar.DATE, 1);
+		int week=calendar.get(Calendar.DAY_OF_WEEK);
+		
+		//获取当前日期月中最大天数
+		int maxDate=calendar .getActualMaximum(Calendar.DATE);
+		
+		//打印星期1-日		
+		System.out.print("日\t一\t二\t三\t四\t五\t六\t");
+		System.out.println();
+		
+		//打印月初前空白
+		for(int i=1;i<week;i++){
+			
+			System.out.print("\t");
+			
+		}
+		
+		//在当天日期前加*
+		for(int i=1;i<=maxDate;i++){
+			if(d==i){
+				System.out.print("*");
+			}
+			System.out.print(i+"\t");
+			int w=calendar.get(Calendar.DAY_OF_WEEK);
+			//如果日期为星期六则换行
+			if(w==Calendar.SATURDAY){
+				System.out.println();
+				
+			}
+			//日期从1号开始递增
+			calendar.add(Calendar.DATE, 1);
+		}
+	}
+
+	
+	
+		
+		
+
+	}
