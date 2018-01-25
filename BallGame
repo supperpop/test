@@ -1,0 +1,117 @@
+package Plane;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+
+
+import javax.imageio.ImageIO;
+
+/**
+ * 游戏窗口类
+ * */
+public class GameFrame extends Frame{
+	Image image =getImage("Image/soccer-ball.png");
+	int x=21,y=31;
+	boolean left;
+	double degreed=Math.PI/3;
+	double speed=20;		
+	
+	//加载窗口
+	public void launchFrame(){
+		
+		setLocation(100,100);		//设置窗口大小
+		
+		
+		setSize(500,500);			//设置窗口位置
+		
+		
+		setVisible(true);			//设置窗口是否可视
+		
+		//启动线程
+		PaintThread paintThread=new PaintThread();
+		paintThread.start();
+		
+		//设置点击关闭按钮关闭线程
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+		
+	}
+	//画板
+	public void paint(Graphics g){
+		g.setFont(new Font("dd", Font.BOLD , 100));
+		g.setColor(new Color(255, 0, 0));
+		g.drawString("开始", 222, 222);
+		g.drawImage(image, x, y, null);
+		
+		//循环图片在图形界面框那来回平移
+//		if(left){
+//			x-=10;
+//		}else {
+//			x+=10;
+//		}
+//		if(x>=400){
+//			left=true;
+//		}
+//		if (x<=0) {
+//			left=false;
+//		}
+		
+		//通过夹角任意方向弹球
+		x+=speed*Math.cos(degreed);
+		y+=speed*Math.sin(degreed);
+		if(y>500-42 || y<40){
+			degreed=-degreed;
+		}
+		if(x>460 ||x<5){
+			degreed=Math.PI-degreed;
+		}
+		if(speed>=0){
+			speed-=0.005;
+		}else{
+			speed=0;
+		}
+	}
+	
+	//添加图片方法
+	public static Image getImage(String string ){
+		BufferedImage image=null;
+		URL url=GameFrame.class.getClassLoader().getResource(string);
+		try {
+			image=ImageIO.read(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return image;
+		
+	}
+	//线程内部类，实现40毫秒死循环运行
+	public class PaintThread extends Thread{
+		@Override
+		public void run() {
+			while (true) {
+				repaint();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+}
